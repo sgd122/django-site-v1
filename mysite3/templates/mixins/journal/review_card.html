@@ -1,0 +1,12 @@
+{% load bootstrap4 %}
+{% load static %}
+<div class="media mb-4">
+    <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+    <div class="media-body">
+        <h5 class="mt-0">{{review.author.first_name}}</h5>
+        {{ review.message }}
+    </div>
+    <a class="mr-1 btn btn-primary" href="{% url 'journal:review_edit' post.pk review.pk %}">Edit</a>
+    <button class="btn btn-danger"
+        onclick="review_delete('{%url 'journal:review_delete' post.pk review.pk%}')">Delete</button>
+</div>

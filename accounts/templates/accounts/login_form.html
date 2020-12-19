@@ -1,0 +1,16 @@
+{% extends 'accounts/base.html'%} 
+{% load bootstrap4 %}
+{% block content %}
+{% if user.is_authenticated %}
+  <script>
+  // 이미 로그인을 하였다면 Profile로 이동
+  window.location.href="{% url 'profile' %}"
+  </script>
+{% endif %}
+
+<form action="" method="post" novalidate>
+  {% csrf_token %}
+  {% bootstrap_form form %}
+  <input type="submit" class="btn btn-primary" value="로그인"/>
+</form>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "journal/base.html"%}
+{% load bootstrap4 %}
+{% load static %}
+{% block content %}
+
+{% if tagname %}
+<span class="badge badge-success mb-1">#{{tagname}}</span>
+{% endif %}
+
+{% include 'mixins/journal/post_header.html'%}
+
+{% if post_list %}
+    <div class="row mt-5">
+            {% for post in post_list %}
+            {% include 'mixins/journal/post_card.html' with post=post%}
+            {% endfor %}
+    </div>
+
+    {% include 'mixins/journal/pagination.html' with page_obj=page_obj page_range=page_range%}
+{% else %}
+    <div class="card bg-warning text-dark ml-3 mb-3">
+
+        <div class="card-body"><i class="fas fa-exclamation-circle"></i> 포스트가 존재하지 않습니다.</div>
+    </div>
+{% endif %}
+
+{% if user.is_authenticated %}
+    <a href="{% url 'journal:new'%}" class="btn btn-primary">포스팅 쓰기</a>
+{% endif %}
+
+{% endblock content %}

@@ -1,0 +1,16 @@
+<form method="POST" class="w-full" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    {% if form.non_fiels_errors %}
+    {% for error in form.non_field_errors %}
+    <span class="text-red-700 font-medium text-sm">{{error}}</span>
+    {% endfor %}
+    {% endif %}
+
+    {% for field in form %}
+    {% include 'mixins/journal/input.html' with field=field%}
+    {% endfor %}
+
+
+    <button class="btn btn-primary">{{cta}}</button>
+</form>

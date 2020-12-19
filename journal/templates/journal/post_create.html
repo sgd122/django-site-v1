@@ -1,0 +1,19 @@
+{% extends "journal/base.html"%}
+{% load bootstrap4 %}
+{% block content %}
+<h1>New Post</h1>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <!--추가된 부분 -->
+    
+    {{ photo_formset.management_form }}
+    {% for photo in photo_formset %}
+        {{photo.file}}
+    {% endfor %}
+    <!--추가된 부분 -->
+    
+    <input type="submit" class="btn btn-primary" value="작성"/>
+</form>
+{% endblock content %}

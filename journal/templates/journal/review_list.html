@@ -1,0 +1,43 @@
+{% extends "journal/base.html"%}
+{% load bootstrap4 %}
+{% load static %}
+{% block content %}
+{% load taggit_templatetags2_tags %}
+
+
+{% if review_list %}
+    <div class="mt-5">
+
+        {% for review in review_list %}
+            
+            <div class="media border p-3 mb-1">
+                <div class="media-body">
+                    <a href="{% url 'profile' review.author.pk %}" style="color: #000;text-decoration:none">
+                        <h4>{{review.author.first_name}} <small><i>{{review.created_at}}</i></small></h4>
+                    </a>
+                    <p>{{review.message}}</p>
+                    <a href="{% url 'journal:detail' review.post.pk %}" >
+                        <small>{{review.post}}</small>
+                    </a>
+                </div>
+            </div>
+
+            
+        {% endfor %}
+    </div>
+
+    {% include 'mixins/journal/pagination.html' with page_obj=page_obj page_range=page_range%}
+{% else %}
+
+<div class="card bg-secondary text-dark ml-3 mb-3">
+
+    <div class="card-body text-white"><i class="fas fa-exclamation-circle"></i> 댓글이 존재하지 않습니다.</div>
+</div>
+
+{% endif %}
+
+{% if user.is_authenticated %}
+    <a href="{% url 'journal:new'%}" class="btn btn-primary">포스팅 쓰기</a>
+{% endif %}
+
+{% endblock content %}

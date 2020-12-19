@@ -1,0 +1,32 @@
+{% extends "journal/base.html" %}
+{% load bootstrap4 %}
+
+{% block content %}
+
+    <div class="container mx-auto my-10 flex flex-col">
+
+        <div class="my-10 w-full">
+            <a href="{% url 'journal:add-photo' post.pk %}" class="btn-link w-1/6 block">Upload Photo</a>
+        </div>
+
+        {% for photo in post.photos.all %}
+        <div class="mb-5 border p-6 border-gray-400 flex justify-between">
+            <div class="flex items_start">
+                <img src="{{photo.file.url}}" class="w-32 h-32" />
+                <span class="ml-5 text-xl">{{photo.caption}}</span>
+            </div>
+            <div class="flex flex-col w-1/5">
+                <a class="btn-link mb-5 bg-teal-500" href="{% url 'journal:edit-photo' post.pk photo.pk %}">Edit</a>
+                <a class="btn-link bg-red-600" href="{% url 'journal:delete-photo' post.pk photo.pk %}">Delete</a>
+            </div>
+        </div>
+        {% endfor %}
+
+        <div class="flex justify-center mt-5">
+            <a href="{% url 'journal:edit' post.pk %}" class="text-teal-500 font-medium text-xl">Back to edit room</a>
+        </div>
+
+    </div>
+
+
+{% endblock %}

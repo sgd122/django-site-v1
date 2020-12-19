@@ -1,0 +1,48 @@
+{% load bootstrap4 %}
+{% load static %}
+<!-- 기존이미지 -->
+<div>
+    <img id='imagePreview{{ id }}' 
+        src='{{ value.url }}'
+        onerror="javascript:this.src='{% static 'blank.png' %}'" 
+        class="align-self-start mr-3 mb-1"
+        style="min-width:60px; max-width:100%;" 
+    />
+    <button id='imageClearBtn{{ id }}' type='button' class="btn btn-danger">삭제</button>
+    
+    <!-- 기존 ClearableFileInput의 삭제 기능을 활용하기 위해 위에 삭제 버튼을 누르면 체크되도록 하되 안보이게 설정 -->
+    <div class="custom-control custom-checkbox d-none">
+        <input type="checkbox" id="chk-{{ name }}" class="custom-control-input"
+            name="chk-{{ name }}">
+        <label class="custom-control-label" for="chk-{{ name }}">이미지를 삭제하려면 체크하세요.</label>
+    </div>
+
+    <!-- 파일 업로드 폼 좀 더 예쁘게(선택사항) -->
+    <div class="custom-file">
+        <input type="file" id="{{ id }}" class="custom-file-input" name="{{ name }}"
+            accept="image/*" style="cursor: pointer;">
+        <label for="{{ id }}" class="custom-file-label">파일 선택</label>
+    </div>
+
+    <hr>
+    <!-- 여기서부터 스크립트 -->
+    <script>
+        document.getElementById('imageClearBtn{{ id }}').addEventListener('click', function(e) {
+            document.getElementById('imagePreview{{ id }}').src = "";
+            document.getElementById('chk-{{ name }}').checked = true;
+        });
+
+        // 파일 선택 이벤트 등록                
+        document.getElementById('{{ id }}').addEventListener('change', function(e) {
+            if (document.getElementById('{{ id }}').files && document.getElementById('{{ id }}').files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {   
+                    document.getElementById('imagePreview{{ id }}').src = e.target.result;
+                }
+
+                // convert to base64 string
+                reader.readAsDataURL(document.getElementById('{{ id }}').files[0]); 
+            }
+        });
+    </script>
+</div>

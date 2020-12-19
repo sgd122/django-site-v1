@@ -1,0 +1,16 @@
+<form name="fr" class="form-inline" action="" method="get">
+    <nav class="navbar navbar-expand-sm">
+        <input class="form-control mr-sm-2" name="query" type="text" placeholder="Search"
+            value="{{ request.GET.query }}">
+        <button class="btn btn-success" type="submit">검색</button>
+    </nav>
+
+    <select id="sort-select" name="sort" class="form-control" onchange="this.form.submit()">
+        <option class="sort-date" value="post" {% if  request.GET.sort == 'post'%} selected {% endif %}>최신순</option>
+        <option class="sort-likes" value="like" {% if  request.GET.sort == 'like'%} selected {% endif %}>좋아요순</option>
+        {% if user.is_authenticated %}
+        <option class="sort-mypost" value="mypost" {% if  request.GET.sort == 'mypost'%} selected {% endif %}>내가쓴글
+        </option>
+        {% endif %}
+    </select>
+</form>

@@ -1,0 +1,24 @@
+{% load bootstrap4 %}
+{% load static %}
+<div class="col-lg-3 col-sm-5 mb-4">
+    <div class="card h-100 mr-2" style="width: 17rem;">
+        <a href="{% url 'journal:detail' post.pk %}" style="color: #000;text-decoration:none">
+            {% if post.first_photo %}
+            <img src="{{post.first_photo}}" class="card-img-top img-fluid">
+            {% else %}
+            <img src="{% static 'blank.png' %}" class="card-img-top img-fluid">
+            {% endif %}
+
+            <div class="card-body">
+                <p class="card-text">{{post.title}}</p>
+                <p class="card-text">
+                    <small class="text-muted">작성자 : {{post.author}}</small><br />
+                    <small class="text-muted">좋아요 : {{post.like_count}}</small><br />
+                    <small class="text-muted">조회수 : {{post.post_hit}}</small><br />
+                    <small class="text-muted">{{post.created_at}}</small><br />
+                </p>
+            </div>
+
+        </a>
+    </div>
+</div>

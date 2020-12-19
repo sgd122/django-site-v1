@@ -1,0 +1,26 @@
+{% extends "journal/base.html"%} 
+{% load bootstrap4 %}
+{% block content %}
+
+<h2>Post Form</h2>
+{% bootstrap_form form %}
+
+<button class="btn btn-primary" onclick="review_new()">댓글쓰기</button>
+
+<script>
+function review_new() {            
+    const message = $("textarea[name=message]").val();
+    $.ajax({
+        url: "{%url 'journal:re_review_new' parent_review.post.pk parent_review.pk%}", // data를 전송할 url 입니다.
+        type: 'POST',
+        data: {
+            'message': message
+        },
+        dataType: "json",
+        success: function (response) { // ajax 통신이 정상적으로 완료되었을 때
+            window.location.href = "{%url 'journal:detail' parent_review.post.pk%}"
+        }
+    })
+}
+</script>
+{% endblock %}

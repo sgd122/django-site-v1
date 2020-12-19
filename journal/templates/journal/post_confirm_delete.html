@@ -1,0 +1,15 @@
+{% extends "journal/base.html"%}
+{% block content %}
+
+<form action="" method="post">
+    {% csrf_token %}
+    <p>Are you sure?</p>
+    
+    {{ form }}
+    
+    <br/>
+    
+    <input type="submit" class="btn btn-primary" value="확신합니다" />
+</form>
+
+{% endblock %}

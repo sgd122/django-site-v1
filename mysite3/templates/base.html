@@ -1,0 +1,39 @@
+{% load static %}
+{% load bootstrap4 %}
+
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <title>성기동 홈페이지</title>
+
+    {% bootstrap_css %} 
+    {% bootstrap_javascript jquery='full' %}
+    
+    <script src="{% static 'jquery-csrf.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'global.css' %}" />
+
+    <link rel="stylesheet" type="text/css" href="{% static "fontawesome/css/all.min.css" %}" />
+
+    {% block head_extra %}{% endblock %}
+  </head>
+  <body>
+    {% bootstrap_messages %}
+
+    <div class="container">
+      {# 헤더 HTML #}
+      {% include 'partials/header.html' %}
+      
+      <div class="row">
+        <div class="col-md-12">
+
+          {% block content %} {% endblock %}
+
+          {# Footer HTML #}
+          {% include 'partials/footer.html' %}
+        </div>
+      </div>
+    </div>
+    {% block body_extra %}{% endblock %}
+  </body>
+</html>
